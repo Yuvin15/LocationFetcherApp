@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">UserLocation</string>
+    <string name="YOUR_MAPBOX_ACCESS_TOKEN">pk.eyJ1IjoieXV2aW4xNSIsImEiOiJjbG03Y2I0YWgwcGRiM3RtdGx6MTM4bGRiIn0.8sIU_U5H7zcaF0IdbN0oTA</string>
+</resources>
