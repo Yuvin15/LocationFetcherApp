@@ -22,11 +22,17 @@ class MainActivity : AppCompatActivity() {
     private lateinit var locationPermissionHelper: LocationPermissionHelper
     private val onIndicatorBearingChangedListener = OnIndicatorBearingChangedListener {
         mapView.getMapboxMap().setCamera(CameraOptions.Builder().bearing(it).build())
+        // Rotate the map by 90 degrees
+        rotateMap(90.0)
+
     }
 
     private val onIndicatorPositionChangedListener = OnIndicatorPositionChangedListener {
         mapView.getMapboxMap().setCamera(CameraOptions.Builder().center(it).build())
         mapView.gestures.focalPoint = mapView.getMapboxMap().pixelForCoordinate(it)
+        // Rotate the map by 90 degrees
+        rotateMap(90.0)
+
     }
 
     private val onMoveListener = object : OnMoveListener {
@@ -58,8 +64,6 @@ class MainActivity : AppCompatActivity() {
             onMapReady()
         }
     }
-
-
     private fun onMapReady() {
         mapView.getMapboxMap().setCamera(
             CameraOptions.Builder()
@@ -85,11 +89,11 @@ class MainActivity : AppCompatActivity() {
             this.locationPuck = LocationPuck2D(
                 bearingImage = AppCompatResources.getDrawable(
                     this@MainActivity,
-                    R.drawable.ic_launcher_background,
+                    R.drawable.img
                 ),
                 shadowImage = AppCompatResources.getDrawable(
                     this@MainActivity,
-                    R.drawable.ic_launcher_background,
+                    R.drawable.img
                 ),
                 scaleExpression = interpolate {
                     linear()
@@ -107,6 +111,12 @@ class MainActivity : AppCompatActivity() {
         }
         locationComponentPlugin.addOnIndicatorPositionChangedListener(onIndicatorPositionChangedListener)
         locationComponentPlugin.addOnIndicatorBearingChangedListener(onIndicatorBearingChangedListener)
+    }
+    private fun rotateMap(angle: Double) {
+        val cameraOptions = CameraOptions.Builder()
+            .bearing(angle)
+            .build()
+        mapView.getMapboxMap().setCamera(cameraOptions)
     }
 
     private fun onCameraTrackingDismissed() {
